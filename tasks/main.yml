@@ -1,0 +1,38 @@
+---
+- name: Ensure aws tools are updated in repository
+  apt_repository: repo='ppa:awstools-dev/awstools'
+  sudo: yes
+
+- name: Update apt
+  apt: update_cache=yes
+  sudo: yes
+
+- name: Ensure API tool are installed
+  apt: pkg=ec2-api-tools state=present
+  sudo: yes
+
+- name: Copy Remote Syslog binary
+  copy: src=remote_syslog dest=/usr/local/bin/ owner=root group=root mode=055
+  sudo: yes
+
+- name: Gather facts from EC2
+  shell: ec2-describe-instances -O {{ ec2_access_key }} -W {{ ec2_secret_key }} --filter "private-dns-name={{ ansible_fqdn }}" --filter "tag-key=Name" | grep Name | echo `awk '{print $5}'`
+  register: papertrail_hostname
+
+- debug: var=papertrail_hostname.stdout
+
+- name: Copy config file
+  template: src=config.yml.j2 dest=/etc/log_files.yml owner=root group=root
+  sudo: yes
+
+- name: Copy upstart scrip
+  template: src=remote_syslog.conf.j2 dest=/etc/init/remote_syslog.conf owner=root group=root
+  sudo: yes
+
+- name: Start via upstart script
+  service: name=remote_syslog state=stopped
+  sudo: yes
+
+- name: Start via upstart script
+  service: name=remote_syslog state=started
+  sudo: yes

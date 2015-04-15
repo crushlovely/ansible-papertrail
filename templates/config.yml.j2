@@ -1,0 +1,8 @@
+files:
+  - {{ app_path }}/shared/log/{{ server_env }}.log
+hostname: {{ papertrail_hostname.stdout }}
+destination:
+  host: {{ papertrail_host }}
+  port: {{ papertrail_port }}
+  protocol: tls
+exclude_patterns:

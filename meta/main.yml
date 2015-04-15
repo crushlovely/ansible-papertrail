@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Pablo Castillo
+  company: Crush & Lovely
+  description: Installs Sidekiq globally and copies an upstart script for Sidekiq
+  license: MIT
+  min_ansible_version: 1.6
+  platforms:
+    - name: Ubuntu
+      versions:
+        - Precise
+        - Trusty
+  categories:
+    - system
+    - Webserver
+    - Application server
+dependencies: []
+version: 1.0.0

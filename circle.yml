@@ -1,0 +1,31 @@
+---
+machine:
+  python:
+    version: 2.7.9
+  ruby:
+    version: 2.1.0
+dependencies:
+  pre:
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq python-apt python-pycurl aptitude python-software-properties python-pip python-dev git
+    - sudo apt-get update -qq
+
+    # Install Ansible.
+    - pip install ansible==1.9.0.1
+
+    # Add ansible.cfg to pick up roles path.
+    - "printf '[defaults]\nroles_path = ../' > ansible.cfg"
+test:
+  override:
+    # Get nginx role
+    - ansible-galaxy install -f https://github.com/crushlovely/ansible-sidekiq-upstart.git,remotes/origin/$CIRCLE_BRANCH -p ./tests/roles/
+
+    # Check the role/playbook's syntax.
+    - ansible-playbook --syntax-check -i tests/inventory tests/test.yml
+
+    # Check the role/playbook's syntax.
+    - ansible-playbook -i tests/inventory tests/test.yml:
+        timeout: 900
+
+    # Idempotence Test
+    - "ansible-playbook -i tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"

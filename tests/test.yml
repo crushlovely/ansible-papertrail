@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  remote_user: ubuntu
+  gather_facts: true
+  roles:
+    - ansible-papertrail
