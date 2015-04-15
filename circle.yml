@@ -2,8 +2,6 @@
 machine:
   python:
     version: 2.7.9
-  ruby:
-    version: 2.1.0
 dependencies:
   pre:
     - sudo apt-get update -qq
@@ -18,7 +16,7 @@ dependencies:
 test:
   override:
     # Get nginx role
-    - ansible-galaxy install -f https://github.com/crushlovely/ansible-sidekiq-upstart.git,remotes/origin/$CIRCLE_BRANCH -p ./tests/roles/
+    - ansible-galaxy install -f https://github.com/crushlovely/ansible-papertrail.git,remotes/origin/$CIRCLE_BRANCH -p ./tests/roles/
 
     # Check the role/playbook's syntax.
     - ansible-playbook --syntax-check -i tests/inventory tests/test.yml
@@ -28,4 +26,4 @@ test:
         timeout: 900
 
     # Idempotence Test
-    - "ansible-playbook -i tests/inventory tests/test.yml | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
+    - "ansible-playbook -i tests/inventory tests/test.yml | grep -q 'changed=1.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"

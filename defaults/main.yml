@@ -1,5 +1,8 @@
 app_name: test
 app_path: /home/ubuntu/test
 server_env: qa
-app:
-  process_name: "{{ app_name }}"
+papertrail:
+  host: app2.logs.papertrail.com
+  port: 5412
+  log:
+    - "{{ app_path }}/{{ app_name }}.log"

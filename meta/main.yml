@@ -2,7 +2,7 @@
 galaxy_info:
   author: Pablo Castillo
   company: Crush & Lovely
-  description: Installs Sidekiq globally and copies an upstart script for Sidekiq
+  description: Installs and configures Remote_syslog to report specific logfiles to Papertrail
   license: MIT
   min_ansible_version: 1.6
   platforms:
