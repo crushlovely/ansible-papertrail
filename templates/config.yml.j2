@@ -1,8 +1,8 @@
 files:
-  - {{ app_path }}/shared/log/{{ server_env }}.log
-hostname: {{ papertrail_hostname.stdout }}
+  - {{ papertrail.log }}
+hostname: {{ ansible_hostname }}
 destination:
-  host: {{ papertrail_host }}
-  port: {{ papertrail_port }}
+  host: {{ papertrail.host }}
+  port: {{ papertrail.port }}
   protocol: tls
 exclude_patterns:

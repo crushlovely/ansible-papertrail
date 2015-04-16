@@ -1,9 +1,9 @@
-# Ansible role to install Sidekiq
+# Ansible role to install and Configure Papertrail
 
-[![Build Status](https://img.shields.io/circleci/project/crushlovely/ansible-sidekiq-upstart.svg?style=flat)](https://img.shields.io/circleci/project/crushlovely/ansible-sidekiq-upstart)
-[![Current Version](http://img.shields.io/github/release/crushlovely/ansible-sidekiq-upstart.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1180)
+[![Build Status](https://circleci.com/gh/crushlovely/ansible-papertrail.svg?style=shield)](https://github.com/crushlovely/ansible-papertrail)
+[![Current Version](http://img.shields.io/github/release/crushlovely/ansible-papertrail.svg?style=flat)](https://galaxy.ansible.com/list#/users/3804)
 
-This Ansible role installs/updates Sidekiq.  It also copies a working Upstart script.
+This Ansible role installs and configures Papertrail.
 
 ## Installation
 
