@@ -4,5 +4,4 @@ server_env: qa
 papertrail:
   host: app2.logs.papertrail.com
   port: 5412
-  log:
-    - "{{ app_path }}/{{ app_name }}.log"
+  log: "{{ app_path }}/{{ app_name }}.log"

@@ -8,7 +8,7 @@ This Ansible role installs and configures Papertrail.
 ## Installation
 
 ``` bash
-$ ansible-galaxy install crushlovely.sidekiq-upstart,v1.0.0
+$ ansible-galaxy install crushlovely.papertrail,v1.0.0
 ```
 
 ## Variables
@@ -17,8 +17,10 @@ $ ansible-galaxy install crushlovely.sidekiq-upstart,v1.0.0
 app_name: test
 app_path: /home/ubuntu/test
 server_env: qa
-app:
-  process_name: "{{ app_name }}"
+papertrail:
+  host: app2.stuff.papertrail.com
+  port: 12345
+  log: "{{ app_path }}/{{ app_name }}.log"
 ```
 
 ## Usage
@@ -28,7 +30,7 @@ Once this role is installed on your system, include it in the roles list of your
 ``` yaml
 - hosts: localhost
   roles:
-    - crushlovely.sidekiq-upstart
+    - crushlovely.papertrail
 ```
 
 ## Dependencies
