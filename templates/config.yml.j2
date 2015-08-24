@@ -1,8 +1,8 @@
 files:
-  - {{ papertrail.log }}
+  - {{ papertrail_log }}
 hostname: {{ ansible_hostname }}
 destination:
-  host: {{ papertrail.host }}
-  port: {{ papertrail.port }}
+  host: {{ papertrail_host }}
+  port: {{ papertrail_port }}
   protocol: tls
 exclude_patterns:
