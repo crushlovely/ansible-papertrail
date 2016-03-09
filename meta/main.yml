@@ -8,11 +8,11 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - Precise
-        - Trusty
-  categories:
+        - precise
+        - trusty
+  galaxy_tags:
     - system
-    - Webserver
-    - Application server
+    - monitoring
+    - application
 dependencies: []
 version: 2.0.0
