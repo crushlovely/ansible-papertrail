@@ -1,9 +1,28 @@
 ---
+- name: Check if Service Exists
+  stat: path=/etc/init.d/remote_syslog
+  register: service_status
+
 - name: Gather Facts about server
   debug: var={{ ansible_hostname }}
 
+- name: Download Binary
+  get_url: url=https://github.com/papertrail/remote_syslog2/releases/download/v{{ remote_syslog_version }}/remote_syslog_linux_amd64.tar.gz dest=/tmp/
+
+- name: Unzip
+  unarchive: src=/tmp/remote_syslog_linux_amd64.tar.gz dest=/tmp/ copy=no
+
+- name: Stop Curent remote_syslog process
+  service: name=remote_syslog state=stopped
+  when: service_status.stat.exists
+  sudo: yes
+
 - name: Copy Remote Syslog binary
-  copy: src=remote_syslog dest=/usr/local/bin/ owner=root group=root mode=055
+  command: mv /tmp/remote_syslog/remote_syslog /usr/local/bin/
+  sudo: yes
+
+- name: Correct binary permissions
+  file: path=/usr/local/bin/remote_syslog owner=root group=root mode=055
   sudo: yes
 
 - name: Copy config file
@@ -11,13 +30,9 @@
   sudo: yes
 
 - name: Copy upstart script
-  template: src=remote_syslog.conf.j2 dest=/etc/init/remote_syslog.conf owner=root group=root
+  copy: src=remote_syslog dest=/etc/init/remote_syslog.conf owner=root group=root mode=a+x
   sudo: yes
 
-- name: Start via upstart script
-  service: name=remote_syslog state=stopped
-  sudo: yes
-
-- name: Start via upstart script
+- name: Start Remote Syslog
   service: name=remote_syslog state=started
   sudo: yes
