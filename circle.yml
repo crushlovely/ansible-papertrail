@@ -26,4 +26,4 @@ test:
         timeout: 900
 
     # Idempotence Test
-    - "ansible-playbook -i tests/inventory tests/test.yml | grep -q 'changed=3.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
+    - "ansible-playbook -i tests/inventory tests/test.yml | grep -q 'changed=6.*failed=0' && (echo 'Idempotence test: pass' && exit 0) || (echo 'Idempotence test: fail' && exit 1)"
