@@ -1,6 +1,6 @@
 ---
 - name: Check if Service Exists
-  stat: path=/etc/init.d/remote_syslog
+  stat: path=/etc/init/remote_syslog.conf
   register: service_status
 
 - name: Gather Facts about server
@@ -33,9 +33,9 @@
   sudo: yes
 
 - name: Copy Upstart Script
-  copy: src=remote_syslog dest=/etc/init/remote_syslog.conf owner=root group=root mode=a+x
+  copy: src=remote_syslog dest=/etc/init/remote_syslog.conf owner=root group=root
   sudo: yes
 
 - name: Start Remote Syslog
-  service: name=remote_syslog state=restarted
+  service: name=remote_syslog state=started
   sudo: yes
