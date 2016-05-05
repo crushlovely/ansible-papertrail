@@ -4,3 +4,4 @@ server_env: qa
 papertrail_host: app2.logs.papertrail.com
 papertrail_port: 5412
 papertrail_log: "{{ app_path }}/{{ app_name }}.log"
+remote_syslog_version: 0.17
